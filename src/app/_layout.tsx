@@ -20,6 +20,8 @@ export default function RootLayout() {
   NavigationBar.setBackgroundColorAsync("transparent");
   // ALTERAR COR DOS ICONES
   NavigationBar.setButtonStyleAsync("dark");
+  // REVELA A BARRA DE NAVEGAÇÃO TEMPORARIAMENTE
+  NavigationBar.setBehaviorAsync("overlay-swipe")
 
 
   if (!fontsLoaded) {

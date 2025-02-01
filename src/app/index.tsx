@@ -15,7 +15,6 @@ export default function Index() {
         <Image 
           source={require("@/assets/images/welcome.png")}
           className="w-full object-cover"
-          resizeMode="cover"
         />
 
         <View className="w-full px-7 gap-6">

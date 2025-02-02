@@ -3,7 +3,7 @@
 O Ushion é um app de e-commerce de imagens, que oferece uma experiência intuitiva e elegante para comprar e baixar imagens. <br/>Com design moderno, permite descobrir tendências, explorar categorias, ver detalhes dos produtos e adquirir de forma prática e segura.
 
 ## Principais tecnologias
-<div style="display:flex;flex-direction:row; gap:20px;">
+<div style="display:flex;flex-direction:row; gap:20px; align-items:center;">
 
 <img src="./assets/readme-images/expo-plus-reactnative.png" alt="" width="200">
 

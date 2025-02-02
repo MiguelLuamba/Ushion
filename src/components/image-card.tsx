@@ -1,16 +1,16 @@
 import { Heart } from "lucide-react-native";
-import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
-interface OutfitCardProps {
+interface ImageCardsProps {
   title: string
   image_url: string
   onPress: () => void
 }
-export function OutfitCard({
+export function ImageCard({
   title,
   image_url,
   onPress
-}:OutfitCardProps){
+}:ImageCardsProps){
 
   return(
     <TouchableOpacity 

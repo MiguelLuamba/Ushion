@@ -1,27 +1,28 @@
 import "@/styles/global.css";
 import { Slot } from "expo-router";
-import { SafeAreaView, View } from "react-native";
-import { StatusBar } from "expo-status-bar"
 import { useFonts } from "expo-font";
-import * as NavigationBar from 'expo-navigation-bar';
+import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
+import { SafeAreaView, View } from "react-native";
+import * as NavigationBar from 'expo-navigation-bar';
 import { Barlow_400Regular, Barlow_700Bold } from "@expo-google-fonts/barlow";
 
 
 export default function RootLayout() {
+  // LOADING FONTS
   const [fontsLoaded] = useFonts({
     BarlowRegular: Barlow_400Regular,
     BarlowBold: Barlow_700Bold,
   });
-
-  // OCULTAR BARRA DE NAVEGAÇÃO
-  NavigationBar.setVisibilityAsync("hidden");
-  // ALTERAR COR DA BARRA DE NAGEGAÇÃO
-  NavigationBar.setBackgroundColorAsync("transparent");
-  // ALTERAR COR DOS ICONES
+  
+  // CHANGE COLOR OF NAVIGATIONBAR'S ICON
   NavigationBar.setButtonStyleAsync("dark");
-  // REVELA A BARRA DE NAVEGAÇÃO TEMPORARIAMENTE
-  NavigationBar.setBehaviorAsync("overlay-swipe")
+  // HIDE NAVIGATIONBAR
+  NavigationBar.setVisibilityAsync("hidden");
+  // SHOW TEMPORARILY NAVIGATIONBAR
+  NavigationBar.setBehaviorAsync("overlay-swipe");
+  // CHANGE NAVIGATIONBAR'S COLOR
+  NavigationBar.setBackgroundColorAsync("transparent");
 
 
   if (!fontsLoaded) {
@@ -33,9 +34,8 @@ export default function RootLayout() {
     )
   }
 
-  
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white font-barlow">
       <StatusBar animated={true} backgroundColor="#FFF" style="dark" translucent={false}/>
       <Slot />
     </SafeAreaView>

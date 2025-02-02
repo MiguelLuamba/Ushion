@@ -1,8 +1,8 @@
 export function GetFirstAndSecondWord(str: string): string {
-  // Divida a string em palavras
+  // DIVIDE STRING ON WORDS
   const words = str.split(' ');
-  // Pegue as primeiras duas palavras
+  // GET FIRST AND SECOND WORD
   const firstTwoWords = words.slice(0, 2);
-  // Junte as palavras de volta em uma string
+  // RETUTN JOIN FIRST AND SECOND WORD ON A STRING
   return firstTwoWords.join(' ');
 }

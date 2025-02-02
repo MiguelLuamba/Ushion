@@ -1,10 +1,11 @@
-import { PhotosProps } from "@/app/home";
 import { Button } from "./button";
+import { PhotosProps } from "@/app/home";
+import LottieView from "lottie-react-native";
 import { ArrowLeft } from "lucide-react-native";
 import { useState, useTransition } from "react";
-import { ActivityIndicator, Image, ImageBackground, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { saveImageToGallery } from "@/utils/download-image";
 import { GetFirstAndSecondWord } from "@/utils/get-first-and-two-words";
-import { StatusBar } from "expo-status-bar";
+import { Image, ImageBackground, Modal, Pressable, ScrollView, Text, View } from "react-native";
 
 type DataImagesProps = {
   title?: string
@@ -24,18 +25,30 @@ type DataImagesProps = {
 interface DownloadImageModalProps {
   onpenModal: boolean
   data: DataImagesProps
-  exampleImages: Array<PhotosProps>
   closeModal: () => void
+  exampleImages: Array<PhotosProps>
 }
 
 export function DownloadImageModal({
-  exampleImages,
   data,
   onpenModal,
-  closeModal
+  closeModal,
+  exampleImages
 }: DownloadImageModalProps) {
+  // IMAGE OBJECT LENGTH
+  const arrayLength = exampleImages.length 
+  // SAVING IMAGE LOADING
+  const [isSavingImagePending, startIsSavingImagePending] = useTransition()
+  // IMAGE BACKGROUND LOADING CONTROLLER
+  const [imageBackgroundLoading, setImageBackgroundLoading] = useState(true)
 
-  const arrayLength = exampleImages.length
+  // SAVE IMAGE ON MOBILE DEVICE
+  function saveImage(){
+    startIsSavingImagePending(() => {
+      saveImageToGallery(data.src?.large2x || "")
+      closeModal()
+    })
+  }
 
   return (
     <Modal
@@ -44,19 +57,17 @@ export function DownloadImageModal({
       visible={onpenModal}
     >
       <ScrollView className="flex-1 w-full h-full bg-white">
-        <ImageBackground 
-          source={{uri: data.src?.large2x}}
-          // loadingIndicatorSource={}
+        <ImageBackground
+          source={{uri: data.src?.large2x || ""}}
+          onLoadEnd={() => setImageBackgroundLoading(false)} // HIDE LOTTIE ANIMATION
           resizeMode="cover"
-          className="w-full h-[500px] bg-secundary-800 p-4 gap-[15%] rounded-b-3xl"
+          className="w-full h-[500px] bg-primary-900 p-4 gap-[15%] rounded-b-3xl relative"
         >
           <Pressable 
             onPress={closeModal}
-            className="items-center justify-center bg-secundary-700 size-10 rounded-full">
-            <ArrowLeft 
-              size={20} 
-              color="#FFF"
-            />
+            className="items-center justify-center bg-secundary-700 size-10 rounded-full"
+          >
+            <ArrowLeft size={20} color="#FFF" />
           </Pressable>
 
           {/* SUGGEST IMAGES */}
@@ -90,12 +101,30 @@ export function DownloadImageModal({
               />
             </View>
           </View>
+
+          {imageBackgroundLoading && (
+            <LottieView
+              autoPlay
+              style={{
+                width: 150,
+                height: 150,
+                alignSelf:"center",
+                position:"absolute",
+                top: "50%",
+                left: "50%",
+                transform: [{translateX: -50}, {translateY: -50}]
+                
+              }}
+              loop
+              source={require("@/assets/lottie/loading.json")}
+            />
+          )}
          
         </ImageBackground>
 
 
         <View className="w-[95%] mx-auto gap-4 pb-2">
-          <View className="">
+          <View>
             <Text className="font-barlow-bold text-secundary-800 text-lg">
               {GetFirstAndSecondWord(data.title || "undefined")}
             </Text>
@@ -104,7 +133,7 @@ export function DownloadImageModal({
 
 
 
-          <View className="">
+          <View>
             <Text className="font-barlow-bold text-secundary-800 text-lg">Select size</Text>
 
             <ScrollView 
@@ -154,12 +183,13 @@ export function DownloadImageModal({
           <Button
             text="DOWNLOAD NOW"
             style="secundary"
+            onPress={saveImage}
+            loading={isSavingImagePending}
           />
 
 
 
         </View>
-       
 
       </ScrollView>
     </Modal>

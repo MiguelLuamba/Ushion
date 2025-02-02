@@ -1,12 +1,11 @@
 import { api } from "@/services/api";
 import { Container } from "@/components/container";
-import { OutfitCard } from "@/components/outfit-card";
+import { ImageCard } from "@/components/image-card";
 import { useEffect, useState, useTransition } from "react";
+import { DownloadImageModal } from "@/components/download-image-modal";
 import { GetFirstAndSecondWord } from "@/utils/get-first-and-two-words";
 import { Logs, BellRing, MessageCircle, Search, SlidersHorizontal } from "lucide-react-native";
 import { ActivityIndicator, FlatList, Image, RefreshControl, Text, TextInput, TouchableHighlight, View } from "react-native";
-import { DownloadImageModal } from "@/components/download-image-modal";
-import { StatusBar } from "expo-status-bar";
 
 export interface PhotosProps {
   id: number;
@@ -25,24 +24,24 @@ export interface PhotosProps {
 
 export default function Home() {
 
-  const [query, setQuery] = useState("")
-  const [isPending, startTransition] = useTransition()
-  const [openModal, setOpenModal] = useState(false)
-  const [photos, setPhotos] = useState<PhotosProps[]>([])
-  const [imageSelected, setImageSelected] = useState<PhotosProps | null>(null)
+  const [query, setQuery] = useState("") // SEARCH INPUT'S TEXT 
+  const [openModal, setOpenModal] = useState(false) // OPEN DETAILS MODAL
+  const [isPending, startTransition] = useTransition() // FETCH PHOTOS TRANSITION
+  const [photos, setPhotos] = useState<PhotosProps[]>([]) // ALL PHOTOS FETCHED
+  const [imageSelected, setImageSelected] = useState<PhotosProps | null>(null) // IMAGE SELECTED TO VIEW DETAILS
 
-
+  // MODIFY IMAGE SELECTED
   function modifyImageSelected(data: PhotosProps){
     setImageSelected(data)
     setOpenModal(true)
   }
 
-  // FETCH PHOTOS
+  // FETCH PHOTOS FUNCTION
   async function fetchPhotos(){
     try {
       const response = await api.get("/search",{
         params:{
-          query: query.trim().length > 0 ?query:"fashion",
+          query: query.trim().length > 0 ? query : "peoples",
           per_page: 30
         },
       });
@@ -51,6 +50,7 @@ export default function Home() {
       console.log("error fetching images...")
     }
   }
+
   // FETCH PHOTO DATA UPDATING "pull-to-refresh"
   const onRefresh = async () => {
     startTransition(() => {
@@ -63,6 +63,7 @@ export default function Home() {
       fetchPhotos()
     })
   },[query])
+
   return (
     <Container 
       styles={{
@@ -124,11 +125,13 @@ export default function Home() {
         </View>
       </View>
 
+      {/* CATEGORY AND FILTER TEXT */}
       <View className="w-full items-center flex-row justify-between">
         <Text className="font-barlow-bold text-base">Category</Text>
         <Text className="text-base text-secundary-700">View All</Text>
       </View>
 
+      {/* ALL PHOTOS RENDERING */}
       {isPending 
         ?(<ActivityIndicator size="large" color="#1E1E1E"/>)
         :(
@@ -144,7 +147,7 @@ export default function Home() {
             }}
             data={photos}
             renderItem={({item})=>(
-              <OutfitCard
+              <ImageCard
                 key={item.id}
                 onPress={()=>modifyImageSelected(item)}
                 title={GetFirstAndSecondWord(item.alt)}
@@ -163,6 +166,7 @@ export default function Home() {
         )
       }
 
+      {/* DETAILS AND DOWNLOAD IMAGE MODAL */}
       <DownloadImageModal
         onpenModal={openModal}
         closeModal={() => setOpenModal(false)}
@@ -173,10 +177,6 @@ export default function Home() {
           title: imageSelected?.alt
         }}
       />
-
-
-
-
 
     </Container>
   );

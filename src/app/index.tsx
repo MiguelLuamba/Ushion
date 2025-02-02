@@ -1,7 +1,7 @@
-import { Button } from "@/components/button";
-import { Container } from "@/components/container";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { Button } from "@/components/button";
+import { Container } from "@/components/container";
 import { Image, ScrollView, Text, View } from "react-native";
 
 export default function Index() {

@@ -5,5 +5,5 @@ export const api = axios.create({
   baseURL: PEXELS_BASE_URL,
   headers:{
     Authorization: PEXELS_API_AUTH
-  }
+  },
 })

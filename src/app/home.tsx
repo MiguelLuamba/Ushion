@@ -3,13 +3,20 @@ import { Container } from "@/components/container";
 import { OutfitCard } from "@/components/outfit-card";
 import { useEffect, useState, useTransition } from "react";
 import { GetFirstAndSecondWord } from "@/utils/get-first-and-two-words";
-import { Logs, BellRing, MessageCircle, Search, SlidersHorizontal, Heart } from "lucide-react-native"
-import { ActivityIndicator, FlatList, Image, Text, TextInput, TouchableHighlight, View } from "react-native";
+import { Logs, BellRing, MessageCircle, Search, SlidersHorizontal } from "lucide-react-native";
+import { ActivityIndicator, FlatList, Image, RefreshControl, Text, TextInput, TouchableHighlight, View } from "react-native";
+import { DownloadImageModal } from "@/components/download-image-modal";
+import { StatusBar } from "expo-status-bar";
 
-interface PhotosProps {
+export interface PhotosProps {
   id: number;
   alt: string;
   src: {
+    original: string;
+    large2x: string;
+    large: string;
+    medium: string;
+    landscape: string;
     portrait: string;
     small: string;
     tiny: string;
@@ -20,23 +27,36 @@ export default function Home() {
 
   const [query, setQuery] = useState("")
   const [isPending, startTransition] = useTransition()
+  const [openModal, setOpenModal] = useState(false)
   const [photos, setPhotos] = useState<PhotosProps[]>([])
+  const [imageSelected, setImageSelected] = useState<PhotosProps | null>(null)
 
+
+  function modifyImageSelected(data: PhotosProps){
+    setImageSelected(data)
+    setOpenModal(true)
+  }
+
+  // FETCH PHOTOS
   async function fetchPhotos(){
     try {
       const response = await api.get("/search",{
         params:{
           query: query.trim().length > 0 ?query:"fashion",
-          per_page: 40
+          per_page: 30
         },
-      })
-      console.log(response.data.photos)
+      });
       setPhotos(response.data.photos)
     } catch (error) {
       console.log("error fetching images...")
     }
   }
-
+  // FETCH PHOTO DATA UPDATING "pull-to-refresh"
+  const onRefresh = async () => {
+    startTransition(() => {
+       fetchPhotos();
+    })
+  };
 
   useEffect(()=>{
     startTransition(() => {
@@ -46,9 +66,9 @@ export default function Home() {
   return (
     <Container 
       styles={{
-        paddingHorizontal: 16,
+        gap: 12,
         paddingVertical: 14,
-        gap: 12
+        paddingHorizontal: 16
       }}
     >
       {/* HEADER */}
@@ -126,10 +146,14 @@ export default function Home() {
             renderItem={({item})=>(
               <OutfitCard
                 key={item.id}
+                onPress={()=>modifyImageSelected(item)}
                 title={GetFirstAndSecondWord(item.alt)}
-                image_url={item.src.portrait}
+                image_url={item.src.medium}
               />
             )}
+            refreshControl={
+              <RefreshControl refreshing={isPending} onRefresh={onRefresh} />
+            }
             ListEmptyComponent={
               <Text className="text-secundary-700 text-center w-full mt-6">
                 No image founded.
@@ -138,6 +162,21 @@ export default function Home() {
           />
         )
       }
+
+      <DownloadImageModal
+        onpenModal={openModal}
+        closeModal={() => setOpenModal(false)}
+        exampleImages={photos}
+        data={{
+          src: imageSelected?.src,
+          alt: imageSelected?.alt,
+          title: imageSelected?.alt
+        }}
+      />
+
+
+
+
 
     </Container>
   );

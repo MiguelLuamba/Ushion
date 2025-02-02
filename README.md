@@ -1,51 +1,44 @@
-# Welcome to your Expo app 👋
+# Bem vindo a Ushion 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+O Ushion é um app de e-commerce de imagens, que oferece uma experiência intuitiva e elegante para comprar e baixar imagens. <br/>Com design moderno, permite descobrir tendências, explorar categorias, ver detalhes dos produtos e adquirir de forma prática e segura.
 
-## Get started
+## Principais tecnologias
+<div style="display:flex;flex-direction:row; gap:20px;">
 
-1. Install dependencies
+<img src="./assets/readme-images/expo-plus-reactnative.png" alt="" width="200">
+
+<img src="./assets/readme-images/nativewind.jpeg" alt="" width="200">
+
+</div>
+
+
+## Setup do Projeto
+
+1. Certifique-se de ter instalado em sua máquina o **Node.Js v20** e o **npm v11**
+
+2. Abra o terminal e navegue até uma pasta que queira instalar o projeto
+
+3. Clone o repositório do projeto
 
    ```bash
-   npm install
+   git clone https://github.com/MiguelLuamba/Ushion.git
    ```
 
-2. Start the app
+4. Instale as dependências
 
    ```bash
-    npx expo start
+    npm install
    ```
+5. Inicie o aplicativo
+   ```bash
+      npm start
+   ```
+6. Instale o aplicativo **Expo Go** no seu celular e escaneie o código QR que aparecerá no terminal
 
-In the output, you'll find options to open the app in a
+   Att: certifique-se que o celular e o computador estejam na mesma rede
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Developer Sign
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# Ushion
+   ```bash
+   * MIGUEL LUAMBA
+   ```

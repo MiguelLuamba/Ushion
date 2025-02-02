@@ -21,7 +21,7 @@ O Ushion é um app de e-commerce de imagens, que oferece uma experiência intuit
 3. Clone o repositório do projeto
 
    ```bash
-   git clone https://github.com/MiguelLuamba/Ushion.git
+   git clone https://github.com/MiguelLuamba/ushion.git
    ```
 
 4. Instale as dependências

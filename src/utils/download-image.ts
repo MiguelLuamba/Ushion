@@ -6,11 +6,15 @@ const folderName = "Ushion"; // GALERY ALBUM NAME
 
 export async function saveImageToGallery(imageUrl: string) {
   try {
-    // GET PERMISSION TO ACCESS GALERY
-    const { status } = await MediaLibrary.requestPermissionsAsync();
+    const { status } = await MediaLibrary.getPermissionsAsync();
+    
     if (status !== "granted") {
-      Alert.alert("Permissão necessária", "Precisamos de acesso à sua galeria para salvar imagens.");
-      return;
+      // GET PERMISSION TO ACCESS GALERY
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permissão necessária", "Precisamos de acesso à sua galeria para salvar imagens.");
+        return;
+      }
     }
 
     // SET IMAGE PATH TO SAVE IMAGE WITH UNIQUE NAME

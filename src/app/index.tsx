@@ -19,14 +19,14 @@ export default function Index() {
 
         <View className="w-full px-7 gap-6">
           <Text className="text-center text-2xl font-barlow-bold">
-            Find your best outfit {"\n"}
-            and look great
+            Find the best photos {"\n"}
+            and download free
           </Text>
 
           <Text className="text-center text-xl font-normal text-secundary-700">
-          Find a wide variety of the latest {"\n"}
-          clothing styles only here And {"\n"}
-          define your style.
+          You may Find a wide variety {"\n"}
+          of the latest clothing styles only {"\n"}
+          here And define your style.
           </Text>
 
           <Button 

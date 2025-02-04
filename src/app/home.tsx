@@ -75,7 +75,7 @@ export default function Home() {
       {/* HEADER */}
       <View className="w-full gap-3.5">
 
-        <View className="flex-row w-full max-w-96 items-center justify-between">
+        <View className="flex-row w-full items-center justify-between">
           <Logs size={24} color="#414141"/>
 
           <Text className="text-2xl font-barlow-bold ml-10">Ushion</Text>
@@ -87,7 +87,7 @@ export default function Home() {
 
         </View>
 
-        <View className="bg-primary-900 w-full max-w-96 h-16 rounded-lg flex-row items-center px-4">
+        <View className="bg-primary-900 w-full h-16 rounded-lg flex-row items-center px-4">
           <Search size={20} color="#7C7E79"/>
           <TextInput 
             placeholder="search here..." 
